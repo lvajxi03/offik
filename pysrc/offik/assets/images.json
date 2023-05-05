@@ -1,0 +1,19 @@
+{
+    "common": {
+      "flag-pl": "images/flag_pl.png",
+      "flag-en": "images/flag_en.png",
+      "flag-ua": "images/flag_ua.png",
+      "running": "images/running.png",
+      "background": "images/default-bg.png"
+    },
+  "menu": {
+    "target1": "images/target1.png",
+    "target1-shadow": "images/target1_shadow.png",
+    "new-game": "images/running.png",
+    "new-game-shadow": "images/running_shadow.png",
+    "settings": "images/gear.png",
+    "settings-shadow": "images/gear-shadow.png",
+    "quit": "images/exit.png",
+    "quit-shadow": "images/exit-shadow.png"
+  }
+}
