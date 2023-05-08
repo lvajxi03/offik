@@ -35,6 +35,7 @@ class Game:
             except KeyError:
                 pass
             self.board = new_board
+            print(self.board)
 
     def change_mode(self, new_mode):
         if self.mode != new_mode:
@@ -49,8 +50,6 @@ class Game:
         """
 
         """
-        print("c")
-        self.arena.label_manager.move_to("welcome", "title", "pl", 300, 300)
         self.arena.event_manager.stop_timer_loading()
         self.arena.event_manager.stop_timer_loading_end()
         self.arena.event_manager.start_timer_welcome()

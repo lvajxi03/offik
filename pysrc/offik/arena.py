@@ -10,6 +10,7 @@ from offik.ctypes import Board
 from offik.objects.primi import create_welcome_rectangles
 from offik.assets.manager import ImageManager, LabelManager
 from offik.boards.menu import Menu
+from offik.boards.standard import About
 from offik.events.manager import EventManager
 
 
@@ -21,6 +22,8 @@ class Arena(pyglet.window.Window):
     def __init__(self):
         super().__init__(ARENA_WIDTH, ARENA_HEIGHT)
         self.set_caption(APPLICATION_TITLE)
+
+        self.lang = "en"
         self.batch = Batch()
         assets = resources.path(__package__, "assets")
         self.rectangles = create_welcome_rectangles(30, self.batch)
@@ -29,17 +32,32 @@ class Arena(pyglet.window.Window):
         self.label_manager = LabelManager(assets)
         self.event_manager = EventManager(self)
         self.menu = Menu(self, self.label_manager, self.image_manager)
+        self.about = About(self, self.label_manager, self.image_manager)
         self.painters = {
             Board.LOADING: self.paint_loading,
             Board.WELCOME: self.paint_welcome,
-            Board.MENU: self.menu.paint
+            Board.MENU: self.menu.paint,
+            Board.ABOUT: self.about.paint
         }
         self.keyrelease = {
             Board.LOADING: self.keyrelease_loading,
             Board.WELCOME: self.keyrelease_welcome,
-            Board.MENU: self.menu.keyrelease
+            Board.MENU: self.menu.keyrelease,
+            Board.ABOUT: self.about.keyrelease
+        }
+        self.mouserelease = {
+            Board.MENU: self.menu.mouserelease,
+            Board.ABOUT: self.about.mouserelease
         }
         
+    def change_lang(self, lang):
+        """
+        Change game language
+        :param lang: new language
+        """
+        if lang in ["pl", "en", "ua"] and lang != self.lang:
+            self.lang = lang
+            # TODO: recalculate rectangles?
 
     def on_draw(self):
         try:
@@ -59,25 +77,18 @@ class Arena(pyglet.window.Window):
         Painter for Board.WELCOME
         """
         self.image_manager.draw("common", "background", 0, 0, 0)
-        self.label_manager.draw("common", "title", "pl")
+        self.label_manager.draw("common", "title", self.lang)
 
-    def paint_menu(self):
-        """
 
+    def on_mouse_release(self, x, y, button, modifiers):
         """
-        self.image_manager.draw("common", "background", 0, 0, 0)
-        self.label_manager.draw("common", "title", "pl")
-        self.image_manager.draw("common", "flag-pl", ARENA_WIDTH - 240, 5, 0)
-        self.image_manager.draw("common", "flag-en", ARENA_WIDTH - 160, 5, 0)
-        self.image_manager.draw("common", "flag-ua", ARENA_WIDTH - 80, 5, 0)
-        self.image_manager.draw_centered("menu", "exit-shadow", ARENA_WIDTH / 2 - 507, ARENA_HEIGHT / 2 - 5, 0)
-        self.image_manager.draw_centered("menu", "exit", ARENA_WIDTH / 2 - 512, ARENA_HEIGHT / 2, 0)
-        self.image_manager.draw_centered("menu", "running-shadow", ARENA_WIDTH/2 + 5, ARENA_HEIGHT/2 - 5, 0)
-        self.image_manager.draw_centered("menu", "running", ARENA_WIDTH / 2, ARENA_HEIGHT / 2, 0)
-        self.image_manager.draw_centered("menu", "gear-shadow", ARENA_WIDTH / 2 + 517, ARENA_HEIGHT / 2 - 5, 0)
-        self.image_manager.draw_centered("menu", "gear", ARENA_WIDTH / 2 + 512, ARENA_HEIGHT / 2, 0)
-        self.image_manager.draw("menu", "target1-shadow", (ARENA_WIDTH-512)/2 + 5, (ARENA_HEIGHT-512)/2 - 5, 0)
-        self.image_manager.draw("menu", "target1", (ARENA_WIDTH - 512) / 2, (ARENA_HEIGHT - 512) / 2, 0)
+        Handle mouse-release event
+        """
+        try:
+            handler = self.mouserelease[self.game.board]
+            handler(x, y, button, modifiers)
+        except KeyError:
+            pass
 
     def on_key_press(self, symbol, modifiers):
         if symbol == pyglet.window.key.ESCAPE:
@@ -100,6 +111,5 @@ class Arena(pyglet.window.Window):
         """
 
         """
-        print(symbol, modifiers)
         if symbol == pyglet.window.key.Q:
             sys.exit(1)

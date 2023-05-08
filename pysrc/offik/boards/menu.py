@@ -10,6 +10,8 @@ from collections import deque
 from offik.defs import ARENA_WIDTH, ARENA_HEIGHT
 from offik.ctypes import MenuState
 from offik.events.menu import MenuManager
+from offik.core.primi import Rect
+from offik.ctypes import Board
 
 
 class Menu:
@@ -24,8 +26,13 @@ class Menu:
         :param imagemanager: image management
         """
         self.arena = arena
+        self.lang_rects = {
+            "pl": Rect(ARENA_WIDTH - 240, 0, 80, 60),
+            "en": Rect(ARENA_WIDTH - 160, 0, 80, 60),
+            "ua": Rect(ARENA_WIDTH - 80, 0, 80, 60)}
         self.keys = ["new-game", "options", "load-game", "hiscores", "settings", "help", "about", "quit"]
-        self.queue = deque([4, 7, 0, 4, 7, 0])
+        self.queue = deque([6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5])
+        self.pos2board = [Board.GAME, Board.OPTIONS, Board.LOAD, Board.HISCORES, Board.SETUP, Board.HELP, Board.ABOUT, Board.QUIT]
         self.label_manager = labelmanager
         self.image_manager = imagemanager
         self.menu_manager = MenuManager(self)
@@ -41,15 +48,30 @@ class Menu:
         if symbol == key.Q:
             self.arena.close()
         else:
-            print(symbol, modifiers)
             if self.state == MenuState.READY:
                 if symbol == key.RIGHT:
                     self.menu_manager.start_timer_shift_right()
                 elif symbol == key.LEFT:
                     self.menu_manager.start_timer_shift_left()
                 elif symbol == key.ENTER:
-                    if self.position == 7:
+                    board = self.pos2board[self.position]
+                    if board == Board.QUIT:
                         self.arena.close()
+                    else:
+                        self.arena.game.change_board(board)
+
+    def mouserelease(self, x, y, button, modifiers):
+        """
+        Default mouse release method
+        :param x: x coordinate of mouse pointer
+        :param y: y coordinate of mouse pointer
+        :param button: button pressed
+        :param modifiers: all modifiers used
+        """
+        for key in self.lang_rects:
+            rect = self.lang_rects[key]
+            if rect.contains(x, y):
+                self.arena.change_lang(key)
 
     def paint(self):
         """
@@ -60,7 +82,7 @@ class Menu:
         self.image_manager.draw("common", "flag-pl", ARENA_WIDTH - 240, 5, 0)
         self.image_manager.draw("common", "flag-en", ARENA_WIDTH - 160, 5, 0)
         self.image_manager.draw("common", "flag-ua", ARENA_WIDTH - 80, 5, 0)
-        self.label_manager.draw("common", "title", "pl")
+        self.label_manager.draw("common", "title", self.arena.lang)
 
         i = 0
         for elem in self.queue:
@@ -70,8 +92,8 @@ class Menu:
             i += 1
         # Focused item
         key = self.keys[self.queue[2]]
-        self.label_manager.move_to("menu", key, "en", ARENA_WIDTH / 2, 200)
-        self.label_manager.draw("menu", key, "en")
+        self.label_manager.move_to("menu", key, ARENA_WIDTH / 2, 200)
+        self.label_manager.draw("menu", key, self.arena.lang)
         self.image_manager.draw("menu", "target1-shadow", (ARENA_WIDTH-512)/2 + 5, (ARENA_HEIGHT-512)/2 - 5, 0)
         self.image_manager.draw("menu", "target1", (ARENA_WIDTH - 512) / 2, (ARENA_HEIGHT - 512) / 2, 0)        
 

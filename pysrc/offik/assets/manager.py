@@ -82,41 +82,35 @@ class LabelManager:
         Draw specific label
 
         """
-        shadow_label = None
-        front_label = None
         try:
             shadow_label = self.labels[key][label][lang]["shadow"]
+            shadow_label.draw()
         except KeyError:
             pass
         try:
             front_label = self.labels[key][label][lang]["front"]
+            front_label.draw()
         except KeyError:
             pass
-        if shadow_label:
-            shadow_label.draw()
-        if front_label:
-            front_label.draw()
 
-    def move_to(self, key: str, label: str, lang: str, x: int, y: int):
+    def move_to(self, key: str, label: str, x: int, y: int):
         """
         Move label to specific location
         """
-        shadow_label = None
-        front_label = None
-        try:
-            shadow_label = self.labels[key][label][lang]["shadow"]
-        except KeyError:
-            pass
-        try:
-            front_label = self.labels[key][label][lang]["front"]
-        except KeyError:
-            pass
-        if shadow_label:
-            shadow_label.x = x + 5
-            shadow_label.y = y - 5
-        if front_label:
-            front_label.x = x
-            front_label.y = y
+        for lang in ["pl", "en", "ua"]:
+            try:
+                shadow_label = self.labels[key][label][lang]["shadow"]
+                shadow_label.x = x + 5
+                shadow_label.y = y - 5
+            except KeyError:
+                pass
+            try:
+                front_label = self.labels[key][label][lang]["front"]
+                front_label.x = x
+                front_label.y = y
+            except KeyError:
+                pass
+
 
     def get_pos(self, key: str, label: str, lang: str):
         """
@@ -135,14 +129,11 @@ class LabelManager:
         """
         Get label size
         """
-        lab = None
         try:
             lab = self.labels[key][label][lang]["front"]
-        except KeyError:
-            pass
-        if lab:
             return lab.content_width, lab.content_height
-        return -1, -1
+        except KeyError:
+            return -1, -1
 
     def get_font_size(self, key: str, label: str) -> int:
         """
@@ -173,7 +164,7 @@ class LabelManager:
             except KeyError:
                 pass
 
-    def move_by(self, key: str, label: str, lang: str, dx: int, dy: int):
+    def move_by(self, key: str, label: str, dx: int, dy: int):
         """
         Move label by specific distance (dx and dy)
         :param key: section key name
@@ -182,22 +173,20 @@ class LabelManager:
         :param dx: x-axis distance
         :param dy: y-axis distance
         """
-        shadow_label = None
-        front_label = None
-        try:
-            shadow_label = self.labels[key][label][lang]["shadow"]
-        except KeyError:
-            pass
-        try:
-            front_label = self.labels[key][label][lang]["front"]
-        except KeyError:
-            pass
-        if shadow_label:
-            shadow_label.x += dx
-            shadow_label.y += dy
-        if front_label:
-            front_label.x += dx
-            front_label.y += dy
+        for lang in ["pl", "en", "ua"]:
+            try:
+                shadow_label = self.labels[key][label][lang]["shadow"]
+                shadow_label.x += dx
+                shadow_label.y += dy
+            except KeyError:
+                pass
+            try:
+                front_label = self.labels[key][label][lang]["front"]
+                front_label.x += dx
+                front_label.y += dy
+            except KeyError:
+                pass
+
 
 
 class ImageManager:

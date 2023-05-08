@@ -13,7 +13,17 @@
     "new-game-shadow": "images/running_shadow.png",
     "settings": "images/gear.png",
     "settings-shadow": "images/gear-shadow.png",
+    "options": "images/options.png",
+    "options-shadow": "images/options-shadow.png",
     "quit": "images/exit.png",
-    "quit-shadow": "images/exit-shadow.png"
+    "quit-shadow": "images/exit-shadow.png",
+    "hiscores": "images/hiscores.png",
+    "hiscores-shadow": "images/hiscores-shadow.png",
+    "help": "images/help.png",
+    "help-shadow": "images/help-shadow.png",
+    "about": "images/about.png",
+    "about-shadow": "images/about-shadow.png",
+    "load-game": "images/open.png",
+    "load-game-shadow": "images/open-shadow.png"
   }
 }

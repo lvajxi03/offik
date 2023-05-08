@@ -65,8 +65,8 @@ class EventManager:
         """
         Start default timer for Board.WELCOME
         """
-        _, h = self.dispatcher.label_manager.get_size("common", "title", "pl")
-        self.dispatcher.label_manager.move_to("common", "title", "pl", ARENA_WIDTH, h/2 + 15)
+        w, h = self.dispatcher.label_manager.get_size("common", "title", self.dispatcher.lang)
+        self.dispatcher.label_manager.move_to("common", "title", ARENA_WIDTH + w/2, h/2 + 15)
         pyglet.clock.schedule_interval(self.timer_welcome, 1.0/60)
 
     def stop_timer_welcome(self):
@@ -79,36 +79,18 @@ class EventManager:
         """
         Default timer handler for Board.WELCOME
         """
-        x, y = self.dispatcher.label_manager.get_pos("common", "title", "pl")
-        w, h = self.dispatcher.label_manager.get_size("common", "title", "pl")
+        x, y = self.dispatcher.label_manager.get_pos("common", "title", self.dispatcher.lang)
+        w, h = self.dispatcher.label_manager.get_size("common", "title", self.dispatcher.lang)
         if y < 1000:
             if x < ARENA_WIDTH/2:
-                self.dispatcher.label_manager.move_by("common", "title", "pl", 0, 10)
+                self.dispatcher.label_manager.move_by("common", "title", 0, 10)
             else:
-                self.dispatcher.label_manager.move_by("common", "title", "pl", -10, 0)
+                self.dispatcher.label_manager.move_by("common", "title", -10, 0)
         else:
             size = self.dispatcher.label_manager.get_font_size("common", "title")
             if size > 96:
-                self.dispatcher.label_manager.set_font_size("common", "title", size-4)
+                self.dispatcher.label_manager.set_font_size("common", "title", size-5)
             else:
                 # Stop timer, change to Board.MENU
                 self.stop_timer_welcome()
                 self.dispatcher.game.change_board(Board.MENU)
-
-    def start_timer_menu_shift(self):
-        """
-
-        """
-        pyglet.clock.schedule_interval(self.timer_menu_shift, 1.0/60)
-
-    def stop_timer_menu_shift(self):
-        """
-
-        """
-        pyglet.clock.unschedule(self.timer_menu_shift)
-
-    def timer_menu_shift(self):
-        """
-
-        """
-
