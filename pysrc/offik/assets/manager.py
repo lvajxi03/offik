@@ -48,23 +48,26 @@ class LabelManager:
                 for key in layout:
                     for label in layout[key]:
                         for lang in langs:
-                            lab = Label(layout[key][label][lang],
-                                        font_name=layout[key][label]["font-face"],
-                                        font_size=layout[key][label]["font-size"],
-                                        color=(layout[key][label]["front-color"][0],
-                                               layout[key][label]["front-color"][1],
-                                               layout[key][label]["front-color"][2],
-                                               layout[key][label]["front-color"][3]),
-                                        anchor_x=layout[key][label]["anchor_x"],
-                                        anchor_y=layout[key][label]["anchor_y"])
                             if key not in self.labels:
                                 self.labels[key] = {}
                             if label not in self.labels[key]:
                                 self.labels[key][label] = {}
                             if lang not in self.labels[key][label]:
                                 self.labels[key][label][lang] = {}
-                            self.labels[key][label][lang]["front"] = lab
-                            sha = Label(layout[key][label][lang],
+                            try:
+                                lab = Label(layout[key][label][lang],
+                                            font_name=layout[key][label]['font-face'],
+                                            font_size=layout[key][label]["font-size"],
+                                            color=(layout[key][label]["front-color"][0],
+                                               layout[key][label]["front-color"][1],
+                                               layout[key][label]['front-color'][2],
+                                               layout[key][label]["front-color"][3]),
+                                            anchor_x=layout[key][label]["anchor_x"],
+                                            anchor_y=layout[key][label]["anchor_y"],
+                                            x=layout[key][label]["x"],
+                                            y=layout[key][label]["y"])
+                                self.labels[key][label][lang]["front"] = lab
+                                sha = Label(layout[key][label][lang],
                                         font_name=layout[key][label]["font-face"],
                                         font_size=layout[key][label]["font-size"],
                                         color=(layout[key][label]["shadow-color"][0],
@@ -72,8 +75,12 @@ class LabelManager:
                                                layout[key][label]["shadow-color"][2],
                                                layout[key][label]["shadow-color"][3]),
                                         anchor_x=layout[key][label]["anchor_x"],
-                                        anchor_y=layout[key][label]["anchor_y"])
-                            self.labels[key][label][lang]["shadow"] = sha
+                                        anchor_y=layout[key][label]["anchor_y"],
+                                        x=layout[key][label]["x"]+5,
+                                        y=layout[key][label]["y"]-5)
+                                self.labels[key][label][lang]["shadow"] = sha
+                            except KeyError:
+                                pass
         except IOError:
             pass
 
@@ -110,7 +117,6 @@ class LabelManager:
                 front_label.y = y
             except KeyError:
                 pass
-
 
     def get_pos(self, key: str, label: str, lang: str):
         """

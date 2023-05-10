@@ -10,7 +10,7 @@ from offik.ctypes import Board
 from offik.objects.primi import create_welcome_rectangles
 from offik.assets.manager import ImageManager, LabelManager
 from offik.boards.menu import Menu
-from offik.boards.standard import About
+from offik.boards.standard import About, Help
 from offik.events.manager import EventManager
 
 
@@ -19,10 +19,17 @@ class Arena(pyglet.window.Window):
     Main game arena
     """
 
-    def __init__(self):
-        super().__init__(ARENA_WIDTH, ARENA_HEIGHT)
+    def __init__(self, mode):
+        """
+        Arena initialization
+        :param mode: current screen mode
+        """
+        super().__init__(ARENA_WIDTH, ARENA_HEIGHT, style='borderless', )
         self.set_caption(APPLICATION_TITLE)
-
+        x = int((mode.width - ARENA_WIDTH) / 2)
+        y = int((mode.height - ARENA_HEIGHT) / 2)
+        self.set_location(int(x), int(y))
+        self.set_visible(True)
         self.lang = "en"
         self.batch = Batch()
         assets = resources.path(__package__, "assets")
@@ -33,23 +40,27 @@ class Arena(pyglet.window.Window):
         self.event_manager = EventManager(self)
         self.menu = Menu(self, self.label_manager, self.image_manager)
         self.about = About(self, self.label_manager, self.image_manager)
+        self.help = Help(self, self.label_manager, self.image_manager)
         self.painters = {
             Board.LOADING: self.paint_loading,
             Board.WELCOME: self.paint_welcome,
             Board.MENU: self.menu.paint,
-            Board.ABOUT: self.about.paint
+            Board.ABOUT: self.about.paint,
+            Board.HELP: self.help.paint
         }
         self.keyrelease = {
             Board.LOADING: self.keyrelease_loading,
             Board.WELCOME: self.keyrelease_welcome,
             Board.MENU: self.menu.keyrelease,
-            Board.ABOUT: self.about.keyrelease
+            Board.ABOUT: self.about.keyrelease,
+            Board.HELP: self.help.keyrelease
         }
         self.mouserelease = {
             Board.MENU: self.menu.mouserelease,
-            Board.ABOUT: self.about.mouserelease
+            Board.ABOUT: self.about.mouserelease,
+            Board.HELP: self.help.mouserelease
         }
-        
+
     def change_lang(self, lang):
         """
         Change game language
@@ -60,6 +71,9 @@ class Arena(pyglet.window.Window):
             # TODO: recalculate rectangles?
 
     def on_draw(self):
+        """
+
+        """
         try:
             painter = self.painters[self.game.board]
             painter()
@@ -78,7 +92,6 @@ class Arena(pyglet.window.Window):
         """
         self.image_manager.draw("common", "background", 0, 0, 0)
         self.label_manager.draw("common", "title", self.lang)
-
 
     def on_mouse_release(self, x, y, button, modifiers):
         """

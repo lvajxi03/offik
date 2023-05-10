@@ -9,23 +9,170 @@
           "front-color": [255, 254, 71, 224],
           "shadow-color": [0, 0, 0, 196],
           "anchor_x": "center",
-          "anchor_y": "center"
-      }
-  },
-  "welcome-board": {
+          "anchor_y": "center",
+          "x": 1920,
+          "y": 200
+      },
       "press-any-key": {
           "pl": "Naciśnij dowolny klawisz",
           "en": "Press any key",
-          "ua": "xyz",
+          "ua": "натисніть будь-яку клавішу",
           "font-face": "Arial",
-          "font-size": 96,
+          "font-size": 64,
           "front-color": [255, 254, 71, 224],
           "shadow-color": [0, 0, 0, 196],
           "anchor_x": "center",
-          "anchor_y": "center"
+          "anchor_y": "center",
+          "x": 960,
+          "y": 30
       }
   },
-    "menu": {
+  "board-titles": {
+    "about": {
+	    "pl": "O programie",
+	    "en": "About",
+	    "ua": "Про програму",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "help": {
+	    "pl": "Pomoc",
+	    "en": "Help",
+	    "ua": "Довідка",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "options": {
+	    "pl": "Opcje",
+	    "en": "Options",
+	    "ua": "Опції",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "settings": {
+	    "pl": "Ustawienia",
+	    "en": "Settings",
+	    "ua": "Налаштування",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "load-game": {
+	    "pl": "Załaduj grę",
+	    "en": "Load Game",
+	    "ua": "Завантажити гру",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "save-game": {
+	    "pl": "Zapisz grę",
+	    "en": "Save Game",
+	    "ua": "xyz",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "hiscores": {
+	    "pl": "Najlepsze wyniki",
+	    "en": "Hiscores",
+	    "ua": "Найкращі результати",
+	    "font-face": "Arial",
+	    "font-size": 64,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "new-score": {
+	    "pl": "Nowy rekord",
+	    "en": "New score",
+	    "ua": "xyz",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "game-over": {
+	    "pl": "Koniec gry",
+	    "en": "Game Over",
+	    "ua": "xyz",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "select-player": {
+	    "pl": "Wybierz postać",
+	    "en": "Choose Your Player",
+	    "ua": "xyz",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "choose-weapon": {
+	    "pl": "Wybierz broń",
+	    "en": "Choose Your Weapon",
+	    "ua": "Довідка",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    }
+  },
+ "menu": {
 	"new-game": {
 	    "pl": "Nowa gra",
 	    "en": "New game",
@@ -35,7 +182,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"options": {
 	    "pl": "Opcje",
@@ -46,7 +195,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"load-game": {
 	    "pl": "Załaduj grę",
@@ -57,7 +208,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"hiscores": {
 	    "pl": "Najlepsze wyniki",
@@ -68,7 +221,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"settings": {
 	    "pl": "Ustawienia",
@@ -79,7 +234,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"help": {
 	    "pl": "Pomoc",
@@ -90,7 +247,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"about": {
 	    "pl": "O programie",
@@ -101,7 +260,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	},
 	"quit": {
 	    "pl": "Wyjście",
@@ -112,7 +273,9 @@
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",
-            "anchor_y": "center"	    
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
 	}
     },
     "options-board": {

@@ -4,6 +4,7 @@ from offik.ctypes import Board, Mode
 # from offik.timers.loading import timer_loading
 # from offik.timers.welcome import timer_welcome_init
 
+
 class Game:
     """
     Business logic of the game
@@ -35,7 +36,6 @@ class Game:
             except KeyError:
                 pass
             self.board = new_board
-            print(self.board)
 
     def change_mode(self, new_mode):
         if self.mode != new_mode:
