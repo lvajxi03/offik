@@ -161,7 +161,20 @@
     "choose-weapon": {
 	    "pl": "Wybierz broń",
 	    "en": "Choose Your Weapon",
-	    "ua": "Довідка",
+	    "ua": "xyz",
+	    "font-face": "Arial",
+	    "font-size": 96,
+            "front-color": [255, 254, 71, 224],
+            "shadow-color": [0, 0, 0, 196],
+            "anchor_x": "center",
+            "anchor_y": "center",
+            "x": 960,
+            "y": 1000
+    },
+    "quit": {
+	    "pl": "Zakończyć program?",
+	    "en": "Really quit?",
+	    "ua": "Завершити програму?",
 	    "font-face": "Arial",
 	    "font-size": 96,
             "front-color": [255, 254, 71, 224],

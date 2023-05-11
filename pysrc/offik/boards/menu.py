@@ -32,7 +32,7 @@ class Menu:
             "ua": Rect(ARENA_WIDTH - 80, 0, 80, 60)}
         self.keys = ["new-game", "options", "load-game", "hiscores", "settings", "help", "about", "quit"]
         self.queue = deque([6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5])
-        self.pos2board = [Board.GAME, Board.OPTIONS, Board.LOAD, Board.HISCORES, Board.SETUP, Board.HELP, Board.ABOUT, Board.QUIT]
+        self.pos2board = [Board.PLAYER, Board.OPTIONS, Board.LOAD, Board.HISCORES, Board.SETUP, Board.HELP, Board.ABOUT, Board.QUIT]
         self.label_manager = labelmanager
         self.image_manager = imagemanager
         self.menu_manager = MenuManager(self)
@@ -46,7 +46,7 @@ class Menu:
         Default keyrelease event handler for menu
         """
         if symbol == key.Q:
-            self.arena.close()
+            self.arena.game.change_board(Board.QUIT)
         else:
             if self.state == MenuState.READY:
                 if symbol == key.RIGHT:
@@ -55,10 +55,7 @@ class Menu:
                     self.menu_manager.start_timer_shift_left()
                 elif symbol == key.ENTER:
                     board = self.pos2board[self.position]
-                    if board == Board.QUIT:
-                        self.arena.close()
-                    else:
-                        self.arena.game.change_board(board)
+                    self.arena.game.change_board(board)
 
     def mouserelease(self, x, y, button, modifiers):
         """

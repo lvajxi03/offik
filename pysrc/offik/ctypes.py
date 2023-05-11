@@ -16,15 +16,16 @@ class Board(enum.IntEnum):
     LOADING = 0
     WELCOME = 1
     MENU = 2
-    GAME = 3
-    LOAD = 4
-    OPTIONS = 5
-    HISCORES = 6
-    SETUP = 7
-    HELP = 8
-    ABOUT = 9
-    QUIT = 10
-    NEWSCORE = 11
+    PLAYER = 3
+    GAME = 4
+    LOAD = 5
+    OPTIONS = 6
+    HISCORES = 7
+    SETUP = 8
+    HELP = 9
+    ABOUT = 10
+    QUIT = 11
+    NEWSCORE = 12
 
 
 @enum.unique
@@ -50,6 +51,14 @@ class Mode(enum.IntEnum):
 class MenuState(enum.IntEnum):
     """
     Menu state representation
+    """
+    READY = 0
+    SHIFT = 1
+
+@enum.unique
+class QuitState(enum.IntEnum):
+    """
+    Quit state representation
     """
     READY = 0
     SHIFT = 1

@@ -37,7 +37,6 @@ class MenuManager:
         """
 
         """
-
         if self.menu.distance > 0:
             self.menu.distance -= 32
         else:

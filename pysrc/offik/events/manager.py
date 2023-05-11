@@ -74,6 +74,8 @@ class EventManager:
         Stop default timer for Board.WELCOME
         """
         pyglet.clock.unschedule(self.timer_welcome)
+        self.dispatcher.label_manager.set_font_size("common", "title", 96)
+        self.dispatcher.label_manager.move_to("common", "title", ARENA_WIDTH/2, 1000)
 
     def timer_welcome(self, dt):
         """

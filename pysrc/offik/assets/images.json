@@ -4,7 +4,11 @@
       "flag-en": "images/flag_en.png",
       "flag-ua": "images/flag_ua.png",
       "running": "images/running.png",
-      "background": "images/default-bg.png"
+      "background": "images/default-bg.png",
+      "yes": "images/yes.png",
+      "yes-shadow": "images/yes-shadow.png",
+      "no": "images/no.png",
+      "no-shadow": "images/no-shadow.png"
     },
   "menu": {
     "target1": "images/target1.png",
