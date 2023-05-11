@@ -6,12 +6,9 @@ Board.PLAYER module
 
 from pyglet.window import key
 from pyglet.shapes import Rectangle
-from collections import deque
 from offik.defs import ARENA_WIDTH, ARENA_HEIGHT
-from offik.ctypes import MenuState
-from offik.events.menu import MenuManager
 from offik.core.primi import Rect
-from offik.ctypes import Board
+from offik.ctypes import Board, BoardState
 
 
 class Player:
@@ -33,6 +30,7 @@ class Player:
             "en": Rect(ARENA_WIDTH - 160, 0, 80, 60),
             "ua": Rect(ARENA_WIDTH - 80, 0, 80, 60)}
         self.status_bar = Rectangle(0, 0, ARENA_WIDTH, 66, color=(0, 0, 0, 127))
+        self.state = BoardState.SHIFT
 
     def paint(self):
         """
@@ -59,7 +57,7 @@ class Player:
         :param button: button pressed
         :param modifiers: all modifiers used
         """
-        for key in self.lang_rects:
-            rect = self.lang_rects[key]
+        for lang in self.lang_rects:
+            rect = self.lang_rects[lang]
             if rect.contains(x, y):
-                self.arena.change_lang(key)
+                self.arena.change_lang(lang)

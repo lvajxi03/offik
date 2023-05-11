@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import pyglet.clock
+
+"""
+Game business logic
+"""
+
 from offik.ctypes import Board, Mode
-# from offik.timers.loading import timer_loading
-# from offik.timers.welcome import timer_welcome_init
 
 
 class Game:
@@ -29,6 +31,11 @@ class Game:
         }
 
     def change_board(self, new_board):
+        """
+        Change board to a new one.
+        Only if it differs from current board
+        :param new_board: new board to change to
+        """
         if self.board != new_board:
             try:
                 initializer = self.board_initializers[new_board]
@@ -38,6 +45,11 @@ class Game:
             self.board = new_board
 
     def change_mode(self, new_mode):
+        """
+        Change game mode to a new one.
+        Only if it's different from current mode
+        :param new_mode: new mode to change to
+        """
         if self.mode != new_mode:
             try:
                 initializer = self.mode_initializers[new_mode]
@@ -48,7 +60,7 @@ class Game:
 
     def initialize_board_welcome(self):
         """
-
+        Initializer for Board.WELCOME
         """
         self.arena.event_manager.stop_timer_loading()
         self.arena.event_manager.stop_timer_loading_end()
@@ -68,15 +80,15 @@ class Game:
 
     def initialize_mode_init(self):
         """
-
+        Initializer for Mode.Init
         """
 
     def initialize_mode_prepare(self):
         """
-
+        Initializer for Mode.PREPARE
         """
 
     def initialize_mode_play(self):
         """
-
+        Initializer for Mode.PLAY
         """

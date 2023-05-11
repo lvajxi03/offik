@@ -48,17 +48,11 @@ class Mode(enum.IntEnum):
 
 
 @enum.unique
-class MenuState(enum.IntEnum):
+class BoardState(enum.IntEnum):
     """
-    Menu state representation
-    """
-    READY = 0
-    SHIFT = 1
-
-@enum.unique
-class QuitState(enum.IntEnum):
-    """
-    Quit state representation
+    Board State type
+    READY: accepting user events,
+    SHIFT: animating objects, no events
     """
     READY = 0
     SHIFT = 1

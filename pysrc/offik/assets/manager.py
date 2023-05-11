@@ -8,7 +8,7 @@ import json
 import os
 from pyglet import image
 from pyglet.text import Label
-from pyglet.gl import *
+from pyglet.gl import glEnable, glBlendFunc, GL_BLEND, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA
 
 
 class LabelManager:
@@ -194,7 +194,6 @@ class LabelManager:
                 pass
 
 
-
 class ImageManager:
     """
     Manage your images
@@ -265,9 +264,9 @@ class ImageManager:
         try:
             glEnable(GL_BLEND)
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-            image = self.images[section][key]
-            x -= image.width/2
-            y -= image.height/2
-            image.blit(x, y, z)
+            b_image = self.images[section][key]
+            x -= b_image.width/2
+            y -= b_image.height/2
+            b_image.blit(x, y, z)
         except KeyError:
             pass

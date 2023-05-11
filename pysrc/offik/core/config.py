@@ -47,7 +47,7 @@ class Config:
         :return: True if loaded successfully, False otherwise
         """
         try:
-            with open(filename) as handle:
+            with open(filename, encoding="UTF-8") as handle:
                 self.data = json.load(handle)
                 return True
         except IOError:
@@ -68,7 +68,7 @@ class Config:
         :return: True if saved successfully, False otherwise
         """
         try:
-            with open(filename, "w") as handle:
+            with open(filename, "w", encoding="UTF-8") as handle:
                 json.dump(self.data, handle, indent=2)
                 return True
         except IOError:

@@ -8,7 +8,7 @@ from pyglet.window import key
 from pyglet.shapes import Rectangle
 from collections import deque
 from offik.defs import ARENA_WIDTH, ARENA_HEIGHT
-from offik.ctypes import MenuState
+from offik.ctypes import BoardState
 from offik.events.menu import MenuManager
 from offik.core.primi import Rect
 from offik.ctypes import Board
@@ -38,7 +38,7 @@ class Menu:
         self.menu_manager = MenuManager(self)
         self.position = 0
         self.distance = 512
-        self.state = MenuState.READY
+        self.state = BoardState.READY
         self.status_bar = Rectangle(0, 0, ARENA_WIDTH, 66, color=(0, 0, 0, 127))
 
     def keyrelease(self, symbol, modifiers):
@@ -48,7 +48,7 @@ class Menu:
         if symbol == key.Q:
             self.arena.game.change_board(Board.QUIT)
         else:
-            if self.state == MenuState.READY:
+            if self.state == BoardState.READY:
                 if symbol == key.RIGHT:
                     self.menu_manager.start_timer_shift_right()
                 elif symbol == key.LEFT:
@@ -65,10 +65,10 @@ class Menu:
         :param button: button pressed
         :param modifiers: all modifiers used
         """
-        for key in self.lang_rects:
-            rect = self.lang_rects[key]
+        for lang in self.lang_rects:
+            rect = self.lang_rects[lang]
             if rect.contains(x, y):
-                self.arena.change_lang(key)
+                self.arena.change_lang(lang)
 
     def paint(self):
         """

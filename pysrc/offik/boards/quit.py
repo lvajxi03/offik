@@ -6,11 +6,9 @@ Board.QUIT handler
 
 from pyglet.window import key
 from pyglet.shapes import Rectangle
-from collections import deque
 from offik.defs import ARENA_WIDTH, ARENA_HEIGHT
-from offik.ctypes import QuitState
 from offik.core.primi import Rect
-from offik.ctypes import Board
+from offik.ctypes import Board, BoardState
 from offik.events.quit import QuitManager
 
 class Quit:
@@ -26,7 +24,7 @@ class Quit:
         """
         self.arena = arena
         self.exit = False
-        self.state = QuitState.READY
+        self.state = BoardState.READY
         self.distance = 0
         self.image_manager = image_manager
         self.label_manager = label_manager
@@ -60,7 +58,7 @@ class Quit:
         """
         Default keyrelease handler for Board.QUIT
         """
-        if self.state == QuitState.READY:
+        if self.state == BoardState.READY:
             if symbol == key.RIGHT:
                 if self.exit:
                     self.quit_manager.start_timer_shift_right()
@@ -81,7 +79,7 @@ class Quit:
         :param button: button pressed
         :param modifiers: all modifiers used
         """
-        for key in self.lang_rects:
-            rect = self.lang_rects[key]
+        for lang in self.lang_rects:
+            rect = self.lang_rects[lang]
             if rect.contains(x, y):
-                self.arena.change_lang(key)
+                self.arena.change_lang(lang)

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
-import sys
-import importlib.resources as resources
+"""
+Main arena module
+"""
+
+from importlib import resources
 import pyglet.window
+from pyglet.graphics import Batch
 from offik.defs import APPLICATION_TITLE, ARENA_WIDTH, ARENA_HEIGHT
 from offik.game import Game
-from pyglet.graphics import Batch
 from offik.ctypes import Board
 from offik.objects.primi import create_welcome_rectangles
 from offik.assets.manager import ImageManager, LabelManager
@@ -80,11 +83,10 @@ class Arena(pyglet.window.Window):
         """
         if lang in ["pl", "en", "ua"] and lang != self.lang:
             self.lang = lang
-            # TODO: recalculate rectangles?
 
     def on_draw(self):
         """
-
+        General painter dispatcher
         """
         try:
             painter = self.painters[self.game.board]
@@ -118,6 +120,7 @@ class Arena(pyglet.window.Window):
     def on_key_press(self, symbol, modifiers):
         if symbol == pyglet.window.key.ESCAPE:
             return True
+        return False
 
     def on_key_release(self, symbol, modifiers):
         try:
@@ -134,7 +137,8 @@ class Arena(pyglet.window.Window):
 
     def keyrelease_welcome(self, symbol, modifiers):
         """
-
+        Handler for Board.WELCOME
+        :param symbol:
         """
         self.event_manager.stop_timer_welcome()
         if symbol == pyglet.window.key.Q:
@@ -143,5 +147,8 @@ class Arena(pyglet.window.Window):
             self.game.change_board(Board.MENU)
 
     def quit_application(self):
+        """
+        Save config, exit Em^H^Happlication
+        """
         self.appconfig.save_default()
         self.close()

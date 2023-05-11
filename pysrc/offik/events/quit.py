@@ -5,22 +5,22 @@ Event managers for Board.QUIT
 """
 
 import pyglet.clock
-from offik.ctypes import QuitState
+from offik.ctypes import BoardState
 
 
 class QuitManager:
     """
     Main event manager for Board.QUIT
     """
-    def __init__(self, quit):
-        self.quit = quit
+    def __init__(self, quit_board):
+        self.quit = quit_board
 
     def start_timer_shift_left(self):
         """
         Shift left starts when LEFT ARROW is pressed
         (unlike the menu board behavior)
         """
-        self.quit.state = QuitState.SHIFT
+        self.quit.state = BoardState.SHIFT
         pyglet.clock.schedule_interval(self.timer_shift_left, 1.0/60)
 
     def stop_timer_shift_left(self):
@@ -28,7 +28,7 @@ class QuitManager:
         Stop shift-left timer
         """
         pyglet.clock.unschedule(self.timer_shift_left)
-        self.quit.state = QuitState.READY
+        self.quit.state = BoardState.READY
         self.quit.exit = True
 
     def timer_shift_left(self, dt):
@@ -45,7 +45,7 @@ class QuitManager:
         Shift right is when RIGHT ARROW is pressed
         (unlike the menu board behavior)
         """
-        self.quit.state = QuitState.SHIFT
+        self.quit.state = BoardState.SHIFT
         pyglet.clock.schedule_interval(self.timer_shift_right, 1.0/60)
 
     def stop_timer_shift_right(self):
@@ -53,7 +53,7 @@ class QuitManager:
         Stop shift-right timer
         """
         pyglet.clock.unschedule(self.timer_shift_right)
-        self.quit.state = QuitState.READY
+        self.quit.state = BoardState.READY
         self.quit.exit = False
 
     def timer_shift_right(self, dt):

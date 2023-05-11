@@ -9,26 +9,42 @@ import enum
 
 @enum.unique
 class Orientation(enum.IntEnum):
+    """
+    General orientation enum type
+    """
     HORIZONTAL = 0
     VERTICAL = 1
 
     def change(self):
-        return Orientation.HORIZONTAL if self.value == Orientation.VERTICAL else Orientation.VERTICAL
+        """
+        Change orientation to the other one
+        """
+        return Orientation.HORIZONTAL if self.value \
+                                         == Orientation.VERTICAL else Orientation.VERTICAL
 
 
 @enum.unique
 class Direction(enum.IntEnum):
+    "General direction enum type"
     NORTH = 0
     EAST = 1
     SOUTH = 2
     WEST = 3
 
     def rotate_left(self):
-        v = self.value - 1
-        v %= 4
-        return Direction(v)
+        """
+        Rotate left and return new value
+        :return: Direction after being rotated
+        """
+        val = self.value - 1
+        val %= 4
+        return Direction(val)
 
     def rotate_right(self):
-        v = self.value + 1
-        v %= 4
-        return Direction(v)
+        """
+        Rotate right and return new value
+        :return: Direction after being rotated
+        """
+        val = self.value + 1
+        val %= 4
+        return Direction(val)
