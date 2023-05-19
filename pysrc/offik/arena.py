@@ -37,10 +37,10 @@ class Arena(pyglet.window.Window):
         self.set_visible(True)
         self.appconfig = Config()
         self.lang = "en"
-        assets = resources.path(__package__, "assets")
         self.game = Game()
-        self.image_manager = ImageManager(assets)
-        self.label_manager = LabelManager(assets)
+        with resources.path(__package__, "assets") as assets:
+            self.image_manager = ImageManager(assets)
+            self.label_manager = LabelManager(assets)
         self.boards = {
             Board.LOADING: BoardLoading(self),
             Board.WELCOME: BoardWelcome(self),
