@@ -15,5 +15,5 @@ if __name__ == "__main__":
     mod = scr.get_mode()
     random.seed()
     arena = Arena(mod)
-    arena.game.change_board(Board.LOADING)
+    arena.change_board(Board.LOADING)
     pyglet.app.run()

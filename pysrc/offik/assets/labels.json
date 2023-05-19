@@ -111,7 +111,7 @@
 	    "en": "Hiscores",
 	    "ua": "Найкращі результати",
 	    "font-face": "Arial",
-	    "font-size": 64,
+	    "font-size": 96,
             "front-color": [255, 254, 71, 224],
             "shadow-color": [0, 0, 0, 196],
             "anchor_x": "center",

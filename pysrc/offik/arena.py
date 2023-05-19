@@ -6,17 +6,16 @@ Main arena module
 
 from importlib import resources
 import pyglet.window
-from pyglet.graphics import Batch
 from offik.defs import APPLICATION_TITLE, ARENA_WIDTH, ARENA_HEIGHT
 from offik.game import Game
 from offik.ctypes import Board
-from offik.objects.primi import create_welcome_rectangles
 from offik.assets.manager import ImageManager, LabelManager
-from offik.boards.menu import Menu
-from offik.boards.player import Player
-from offik.boards.quit import Quit
-from offik.boards.standard import About, Help
-from offik.events.manager import EventManager
+from offik.boards.menu import BoardMenu
+from offik.boards.player import BoardPlayer
+from offik.boards.quit import BoardQuit
+from offik.boards.standard import BoardAbout, BoardHelp, BoardHiscores
+from offik.boards.loading import BoardLoading
+from offik.boards.welcome import BoardWelcome
 from offik.core.config import Config
 
 
@@ -38,43 +37,33 @@ class Arena(pyglet.window.Window):
         self.set_visible(True)
         self.appconfig = Config()
         self.lang = "en"
-        self.batch = Batch()
         assets = resources.path(__package__, "assets")
-        self.rectangles = create_welcome_rectangles(30, self.batch)
-        self.game = Game(self)
+        self.game = Game()
         self.image_manager = ImageManager(assets)
         self.label_manager = LabelManager(assets)
-        self.event_manager = EventManager(self)
-        self.menu = Menu(self, self.label_manager, self.image_manager)
-        self.about = About(self, self.label_manager, self.image_manager)
-        self.help = Help(self, self.label_manager, self.image_manager)
-        self.player = Player(self, self.label_manager, self.image_manager)
-        self.quit = Quit(self, self.label_manager, self.image_manager)
-        self.painters = {
-            Board.LOADING: self.paint_loading,
-            Board.WELCOME: self.paint_welcome,
-            Board.MENU: self.menu.paint,
-            Board.ABOUT: self.about.paint,
-            Board.HELP: self.help.paint,
-            Board.PLAYER: self.player.paint,
-            Board.QUIT: self.quit.paint
+        self.boards = {
+            Board.LOADING: BoardLoading(self),
+            Board.WELCOME: BoardWelcome(self),
+            Board.MENU: BoardMenu(self),
+            Board.ABOUT: BoardAbout(self),
+            Board.HELP: BoardHelp(self),
+            Board.PLAYER: BoardPlayer(self),
+            Board.QUIT: BoardQuit(self),
+            Board.HISCORES: BoardHiscores(self)
         }
-        self.keyrelease = {
-            Board.LOADING: self.keyrelease_loading,
-            Board.WELCOME: self.keyrelease_welcome,
-            Board.MENU: self.menu.keyrelease,
-            Board.ABOUT: self.about.keyrelease,
-            Board.HELP: self.help.keyrelease,
-            Board.PLAYER: self.help.keyrelease,
-            Board.QUIT: self.quit.keyrelease
-        }
-        self.mouserelease = {
-            Board.MENU: self.menu.mouserelease,
-            Board.ABOUT: self.about.mouserelease,
-            Board.HELP: self.help.mouserelease,
-            Board.PLAYER: self.player.mouserelease,
-            Board.QUIT: self.quit.mouserelease
-        }
+        self.board = None
+
+    def change_board(self, new_board):
+        """
+        Change board to a new one
+        :param new_board: board to change to
+        """
+        nbo = self.boards[new_board]
+        if nbo != self.board:
+            if self.board:
+                self.board.stop()
+            self.board = nbo
+            self.board.start()
 
     def change_lang(self, lang):
         """
@@ -88,34 +77,13 @@ class Arena(pyglet.window.Window):
         """
         General painter dispatcher
         """
-        try:
-            painter = self.painters[self.game.board]
-            painter()
-        except KeyError:
-            pass
-
-    def paint_loading(self):
-        """
-        Painter for Board.LOADING
-        """
-        self.batch.draw()
-
-    def paint_welcome(self):
-        """
-        Painter for Board.WELCOME
-        """
-        self.image_manager.draw("common", "background", 0, 0, 0)
-        self.label_manager.draw("common", "title", self.lang)
+        self.board.paint()
 
     def on_mouse_release(self, x, y, button, modifiers):
         """
         Handle mouse-release event
         """
-        try:
-            handler = self.mouserelease[self.game.board]
-            handler(x, y, button, modifiers)
-        except KeyError:
-            pass
+        self.board.mouse_release(x, y, button, modifiers)
 
     def on_key_press(self, symbol, modifiers):
         if symbol == pyglet.window.key.ESCAPE:
@@ -123,28 +91,7 @@ class Arena(pyglet.window.Window):
         return False
 
     def on_key_release(self, symbol, modifiers):
-        try:
-            handler = self.keyrelease[self.game.board]
-            return handler(symbol, modifiers)
-        except KeyError:
-            return True
-
-    def keyrelease_loading(self, symbol, modifiers):
-        """
-        Handle key-release event in loading board
-        """
-        self.game.change_board(Board.WELCOME)
-
-    def keyrelease_welcome(self, symbol, modifiers):
-        """
-        Handler for Board.WELCOME
-        :param symbol:
-        """
-        self.event_manager.stop_timer_welcome()
-        if symbol == pyglet.window.key.Q:
-            self.game.change_board(Board.QUIT)
-        else:
-            self.game.change_board(Board.MENU)
+        self.board.key_release(symbol, modifiers)
 
     def quit_application(self):
         """

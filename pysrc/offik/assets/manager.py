@@ -43,7 +43,7 @@ class LabelManager:
         path = os.path.join(path, "labels.json")
         langs = ["pl", "en", "ua"]
         try:
-            with open(path) as fh:
+            with open(path, encoding="UTF-8") as fh:
                 layout = json.load(fh)
                 for key in layout:
                     for label in layout[key]:
@@ -219,14 +219,14 @@ class ImageManager:
         """
         layout_file = os.path.join(path, "images.json")
         try:
-            fh = open(layout_file)
-            js = json.load(fh)
-            # Traverse through layout dictionary:
-            for section in js:
-                if section not in self.images:
-                    self.images[section] = {}
-                for key in js[section]:
-                    self.images[section][key] = image.load(os.path.join(path, js[section][key]))
+            with open(layout_file, encoding="UTF-8") as fh:
+                js = json.load(fh)
+                # Traverse through layout dictionary:
+                for section in js:
+                    if section not in self.images:
+                        self.images[section] = {}
+                    for key in js[section]:
+                        self.images[section][key] = image.load(os.path.join(path, js[section][key]))
         except IOError:
             pass
 
@@ -246,10 +246,11 @@ class ImageManager:
                 result = self.images[section][key]
         return result
 
-    def draw(self, section: str, key: str, x: int, y: int, z: int):
+    def draw(self, section: str, key: str, x: int, y: int, **kwargs):
         """
         Draw image at given coordinates
         """
+        z = kwargs.pop('z', 0)
         try:
             glEnable(GL_BLEND)
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -257,10 +258,11 @@ class ImageManager:
         except KeyError:
             pass
 
-    def draw_centered(self, section: str, key: str, x: int, y: int, z: int):
+    def draw_centered(self, section: str, key: str, x: int, y: int, **kwargs):
         """
         Draw specified image, but centered at (x, y)
         """
+        z = kwargs.pop('z', 0)
         try:
             glEnable(GL_BLEND)
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
