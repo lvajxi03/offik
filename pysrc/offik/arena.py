@@ -12,7 +12,10 @@ from offik.ctypes import Board
 from offik.assets.manager import ImageManager, LabelManager
 from offik.boards.menu import BoardMenu
 from offik.boards.player import BoardPlayer
+from offik.boards.options import BoardOptions
 from offik.boards.quit import BoardQuit
+from offik.boards.load import BoardLoad
+from offik.boards.setupb import BoardSetup
 from offik.boards.standard import BoardAbout, BoardHelp, BoardHiscores
 from offik.boards.loading import BoardLoading
 from offik.boards.welcome import BoardWelcome
@@ -45,11 +48,14 @@ class Arena(pyglet.window.Window):
             Board.LOADING: BoardLoading(self),
             Board.WELCOME: BoardWelcome(self),
             Board.MENU: BoardMenu(self),
+            Board.OPTIONS: BoardOptions(self),
             Board.ABOUT: BoardAbout(self),
             Board.HELP: BoardHelp(self),
             Board.PLAYER: BoardPlayer(self),
             Board.QUIT: BoardQuit(self),
-            Board.HISCORES: BoardHiscores(self)
+            Board.HISCORES: BoardHiscores(self),
+            Board.LOAD: BoardLoad(self),
+            Board.SETUP: BoardSetup(self)
         }
         self.board = None
 
